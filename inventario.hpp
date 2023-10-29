@@ -9,18 +9,18 @@ public:
   /// @brief Adiciona um item ao inventario
   ///
   /// @param item O item a ser adicionado
-  void adicionar(Item item);
+  void adicionarItem(Item item);
 
   /// @brief Remove um item ao inventario
   ///
   /// @param item O item a ser removido
-  void remover(Item item);
+  void removerItem(Item item);
+
 
   
-
   
 private:
 
-   std::map<std::string, Item> estoque;   
+  std::map<std::string, Item> estoque;   
 
 };
