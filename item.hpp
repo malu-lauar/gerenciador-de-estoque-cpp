@@ -8,15 +8,22 @@ public:
     Item(const std::string& nome, double valor, int quantidade);
 
     // Métodos getters e setters para os atributos do Item
+    /// @brief Retorna o nome do item
+    ///
     std::string getNome() const;
+    /// @brief Retorna o valor do item
+    ///
     double getValor() const;
+    /// @brief Retorna a quantidade de itens
+    ///
     int getQuantidade() const;
-    void setQuantidade(int quantidade);
 
-private:
     std::string nome;
     double valor;
     int quantidade;
+    
+private:
+    
 };
 
 

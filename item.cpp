@@ -1,4 +1,4 @@
-#include "item.hpp"
+#include "Item.hpp"
 #include <iostream>
 
 // Implementação do construtor da classe Item
@@ -6,9 +6,11 @@ Item::Item(const std::string& nome, double valor, int quantidade) {
     this->nome = nome;
     this->valor = valor;
     this->quantidade = quantidade;
+    
+// Tratamento de excessões
 }
 
-// Implementação dos métodos getter e Setter
+// Implementação dos métodos getter
 std::string Item::getNome() const {
     return nome;
 }
@@ -19,14 +21,4 @@ double Item::getValor() const {
 
 int Item::getQuantidade() const {
     return quantidade;
-}
-
-void Item::setQuantidade(int quantidade) {
-    // Verifica se a quantidade é não negativa antes de atribuir
-    if (quantidade >= 0) {
-        this->quantidade = quantidade;
-    } else {
-        // Se a quantidade for negativa, não atualiza o valor
-        std::cout << "A quantidade não pode ser negativa." << std::endl;
-    }
 }
