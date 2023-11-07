@@ -1,21 +1,27 @@
 #pragma once
 
-#include "item.hpp"
+#include "Item.hpp"
 #include <map>
 
 
 class Inventario {
 public:
-  /// @brief Adiciona um item ao inventario
+  /// @brief Cadastra um item no inventario
   ///
-  /// @param item O item a ser adicionado
-  void adicionarItem(Item item);
+  void cadastrarItem();
 
-  /// @brief Remove um item ao inventario
+  /// @brief Remove um item do inventario
   ///
-  /// @param item O item a ser removido
-  void removerItem(Item item);
+  void removerItem();
 
+  /// @brief Adiciona uma quantiade de itens ao inventario
+  ///
+  void adicionarItens();
+
+  /// @brief Retira uma quantiade de itens do inventario
+  ///
+  void retirarItens();
+  
 
   
   
