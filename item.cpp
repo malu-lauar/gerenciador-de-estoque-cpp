@@ -2,11 +2,11 @@
 #include <iostream>
 
 // Implementação do construtor da classe Item
-Item::Item(const std::string& nome, double valor, int quantidade) {
+Item::Item(const std::string& nome, double valor) {
     this->nome = nome;
     this->valor = valor;
-    this->quantidade = quantidade;
-    
+    this->quantidade = 0;
+
 // Tratamento de excessões
 }
 
@@ -21,4 +21,12 @@ double Item::getValor() const {
 
 int Item::getQuantidade() const {
     return quantidade;
+}
+
+void Item::setValor(double valor){
+     this->valor = valor;
+}
+
+void Item::setQuantidade(int quantidade){
+     this->quantidade = quantidade;
 }
