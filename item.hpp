@@ -8,6 +8,7 @@ public:
     Item(const std::string& nome, double valor);
 
     // Métodos getters e setters para os atributos do Item
+    
     /// @brief Retorna o nome do item
     ///
     std::string getNome() const;
