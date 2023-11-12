@@ -11,7 +11,9 @@ public:
     static void exibirMensagem(const std::string& mensagem);
     static void limparTela();
     static void exibirItens(const Inventario& inventario);
-    
+
+    template <typename T>
+    static T lerValor(const std::string& mensagem);
 };
 
 

@@ -17,6 +17,7 @@ void Interface::exibirMenu() {
         std::cout << "8: Encerrar sessao" << std::endl;
 }
 
+
 void Interface::exibirMensagem(const std::string& mensagem) {
     std::cout << mensagem << std::endl;
 }
@@ -36,3 +37,11 @@ void Interface::limparTela() {
     #endif
 }
 
+// Função genérica para ler um valor do usuário
+template <typename T>
+T Interface::lerValor(const std::string& mensagem) {
+    T valor;
+    std::cout << mensagem << ": ";
+    std::cin >> valor;
+    return valor;
+}

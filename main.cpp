@@ -10,18 +10,16 @@ int main() {
        
         Interface::exibirMenu();
         // Leitura da escolha do usuário
-        int n;
-        std::cin >> n;
+        int n = Interface::lerValor<int>("opssaum");
 
         if (n == 1) {
-            // Cadastrar item
             meuInventario.cadastrarItem();
+            // Cadastrar itemor();
         } else if (n == 2) {
-            // Remover item
-        
+            // remover itens ao inventario
             meuInventario.removerItem();
         } else if (n == 3) {
-            // Atualizar valor de item
+            // artualizarvalor itens ao inventario
             meuInventario.atualizarValor();
         } else if (n == 4) {
             // Adicionar itens ao inventario
