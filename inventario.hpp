@@ -25,14 +25,9 @@ public:
   /// @brief Retira uma quantiade de itens do inventario
   ///
   void retirarItens();
-
-  /// @brief Retira uma quantiade de itens do inventario
-  ///
-  /// @param intventario o inventário a ser listado
-  void listarItens(const Inventario& inventario);
-
   
-  
+  const std::map<std::string, Item>& obterEstoque() const; 
+
 private:
 
   std::map<std::string, Item> estoque;   

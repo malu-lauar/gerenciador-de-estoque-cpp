@@ -1,37 +1,25 @@
 #include "Item.cpp"
 #include "Inventario.cpp"
+#include "Interface.cpp"
 #include <iostream>
-#include <fstream> // Para manipulação de arquivos
 
 int main() {
     Inventario meuInventario;
-    int n;
-
-    while (true) {
-        std::cout << "O que voce deseja fazer?" << std::endl;
-        //Item
-            std::cout << "1: Cadastrar novo item" << std::endl;
-            std::cout << "2: Remover um item" << std::endl;
-            std::cout << "3: Atualizar Valor do item" << std::endl;
-        //Inventário
-            std::cout << "4: Adicionar itens" << std::endl;
-            std::cout << "5: Retiradr itens" << std::endl;
-            std::cout << "6: Listar itens" << std::endl;
-            std::cout << "7: Ver valor total do estoque" << std::endl;
-        //
-        std::cout << "8: Encerrar sessao" << std::endl;
-
+    
+     while (true) {
+       
+        Interface::exibirMenu();
         // Leitura da escolha do usuário
-        std::cin >> n;
+        int n = Interface::lerValor<int>("opssaum");
 
         if (n == 1) {
-            // Cadastrar item
             meuInventario.cadastrarItem();
+            // Cadastrar itemor();
         } else if (n == 2) {
-            // Remover item
+            // remover itens ao inventario
             meuInventario.removerItem();
         } else if (n == 3) {
-            // Atualizar valor de item
+            // artualizarvalor itens ao inventario
             meuInventario.atualizarValor();
         } else if (n == 4) {
             // Adicionar itens ao inventario
@@ -41,7 +29,7 @@ int main() {
             meuInventario.retirarItens();
         } else if (n == 6) {
             // Listar Itens
-            meuInventario.listarItens(meuInventario);
+            Interface::exibirItens(meuInventario);
         } else if (n == 7) {
             // Ver valor Total
             
@@ -49,9 +37,10 @@ int main() {
             // Encerrar a sessão
             break;  // Sai do loop para encerrar o programa
         } else {
-            std::cout << "Escolha inválida. Digite um número válido" << std::endl;
+            Interface::exibirMensagem("Erro: Escolha invalida");
         }
     }
+
 
     return 0;
 }    

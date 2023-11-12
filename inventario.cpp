@@ -1,15 +1,11 @@
 #include "Inventario.hpp"
+#include "Interface.hpp"
 #include <iostream>
 
 void Inventario::cadastrarItem(){
 
-    std::string nome;
-    double valor;
-
-    std::cout << "Digite o nome do item:" << std::endl;
-    std::cin >> nome;
-    std::cout << "Digite o valor do item:" << std::endl;
-    std::cin >> valor;
+    std::string nome = Interface::lerValor<std::string>("Digite o nome do item que deseja cadastrar:");
+    double valor = Interface::lerValor<double>("Digite o valor do item:");
 
     // Verifica se já existe um item com o mesmo nome no inventário antes de adicionar
     auto it = estoque.find(nome);
@@ -17,79 +13,67 @@ void Inventario::cadastrarItem(){
       // Se o Item não existe, adiciona ao inventário ------- +++++++++v
       Item newItem = Item(nome, valor);
       estoque.insert(std::make_pair(newItem.getNome(), newItem));
-      std::cout << "O item foi cadastrado no inventario!";
+      Interface::exibirMensagem("O item foi cadastrado no inventario!");
+    
     } else {
-      std::cout << "O item já está cadastrado no inventário";
+      Interface::exibirMensagem("Erro: Item ja esta cadastrado no sistema");
     }
 }
 
 void Inventario::removerItem(){
 
-    std::string nome;
-
-    std::cout << "Digite o nome do item que deseja remover:" << std::endl;
-    std::cin >> nome;
+    std::string nome = Interface::lerValor<std::string>("Digite o nome do item que deseja remover");
 
     // Verifica se já existe o item no inventário
     auto it = estoque.find(nome);
     if (it != estoque.end()) {
       // Se o Item existe, o remove do inventário ------- +++++++++v
       estoque.erase(it);
+      Interface::exibirMensagem("O item foi Removido do inventario!");
     } else {
-      std::cout << "O item não está cadastrado no inventário";
+      Interface::exibirMensagem("Erro: O item não está cadastrado no inventário.");
     }
 }
 
 void Inventario::atualizarValor(){
 
-    std::string nome;
-    std::cout << "Digite o nome do item que deseja atualizar:" << std::endl;
-    std::cin >> nome;
+    std::string nome = Interface::lerValor<std::string>("Digite o nome do item");
+
 
     // Verifica se já existe o item no inventário
     auto it = estoque.find(nome);
     if (it != estoque.end()) {
       // Se o Item existe,  ------- +++++++++v
-       int valor;
-       std::cout << "Digite o novo valor:" << std::endl;
-       std::cin >> valor;
-       
+       double valor = Interface::lerValor<int>("Digite o valor do item:");
        it->second.setValor(valor);
-       std::cout << "O valor do item foi autualizado";
+       Interface::exibirMensagem("O valor do item foi autualizado");
 
     } else {
-      std::cout << "O item não está cadastrado no inventário";
+      Interface::exibirMensagem("O item não está cadastrado no inventário");
     }
 }
 
 void Inventario::adicionarItens(){
 
-  std::string nome;
-  int quantidade;
+  std::string nome = Interface::lerValor<std::string>("Digite o nome do item que deseja adicionar");
+  int quantidade = Interface::lerValor<int>("Digite a quantidade de itens");
 
-  std::cout << "Digite o nome do item:" << std::endl;
-  std::cin >> nome;
-  std::cout << "Digite a quantidade de itens:" << std::endl;
-  std::cin >> quantidade;
 // Verifica se o item está no inventário -------= = = = = = 
     auto it = estoque.find(nome);
     if (it != estoque.end()) {
       int sum = it->second.getQuantidade() + quantidade;
       it->second.setQuantidade(sum);
+      Interface::exibirMensagem("A quantidade de itens foi atualizada");
     } else {
-      std::cout << "O item não existe no inventário";
+      Interface::exibirMensagem("O item não existe no inventário");
     }
 }
 
 void Inventario::retirarItens(){
 
-            std::string nome;
-            int quantidade;
+  std::string nome = Interface::lerValor<std::string>("Nome do item");
+  int quantidade = Interface::lerValor<int>("quantidade");
 
-            std::cout << "Digite o nome do item:" << std::endl;
-            std::cin >> nome;
-            std::cout << "Digite a quantidade de itens:" << std::endl;
-            std::cin >> quantidade;
 // Verifica se o item está no inventário -------= = = = = = 
     auto it = estoque.find(nome);
     if (it != estoque.end()) {
@@ -99,19 +83,17 @@ void Inventario::retirarItens(){
        }
        if(dif == 0){
           it->second.setQuantidade(dif);
-          std::cout << "Atenção! Todas as unidades foram retiradas. " << std::endl;
+          Interface::exibirMensagem("Atenção! Todas as unidades foram retiradas!");
        } else {
           it->second.setQuantidade(dif);
           std::cout << dif << " itens foram retirados";
        }
     } else {
-      std::cout << "O item não existe no inventário";
+      Interface::exibirMensagem("O item não existe no inventário");
     }
 }
 
-void Inventario::listarItens(const Inventario& inventario) {
-    std::cout << "Itens no inventário:" << std::endl;
-    for (const auto& par : inventario.estoque) {
-        std::cout << "Nome: " << par.first << ", Valor: " << par.second.getValor() << ", Quantidade: " << par.second.getQuantidade() << std::endl;
-    }
+const std::map<std::string, Item>& Inventario::obterEstoque() const {
+      return estoque;
 }
+
