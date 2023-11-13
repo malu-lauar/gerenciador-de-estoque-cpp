@@ -40,7 +40,5 @@ int main() {
             Interface::exibirMensagem("Erro: Escolha invalida");
         }
     }
-
-
     return 0;
-}    
+}

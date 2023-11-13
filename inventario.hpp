@@ -25,11 +25,18 @@ public:
   /// @brief Retira uma quantiade de itens do inventario
   ///
   void retirarItens();
+
+  /// @brief retorna o item 
+  ///
+  Item getItem(std::string nome);
+
+  /// @brief verifica se o item existe no inventário
+  ///
+  bool itemExiste(std::string nome);
   
   const std::map<std::string, Item>& obterEstoque() const; 
 
 private:
-
   std::map<std::string, Item> estoque;   
 
 };
