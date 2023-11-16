@@ -16,10 +16,12 @@ public:
     /// @brief Retorna a quantidade de itens
     ///
     int getQuantidade() const;
+    
     /// @brief Retorna a quantidade de itens
     ///
     void setValor(double valor);
-    /// @brief Retorna a quantidade de itens
+
+    /// @brief 
     ///
     void setQuantidade(int quantidade);
 

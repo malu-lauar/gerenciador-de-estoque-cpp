@@ -1,16 +1,17 @@
 #include "Item.cpp"
 #include "Inventario.cpp"
 #include "Interface.cpp"
+#include "Movimentacao.cpp"
 #include <iostream>
 
 int main() {
     Inventario meuInventario;
     
      while (true) {
-       
+    
         Interface::exibirMenu();
         // Leitura da escolha do usuário
-        int n = Interface::lerValor<int>("opssaum");
+        int n = Interface::lerValor<int>("Opssaum");
 
         if (n == 1) {
             meuInventario.cadastrarItem();
@@ -31,8 +32,8 @@ int main() {
             // Listar Itens
             Interface::exibirItens(meuInventario);
         } else if (n == 7) {
-            // Ver valor Total
-            
+            // 
+            Interface::exibirHistorico(meuInventario);
         } else if (n == 8) {
             // Encerrar a sessão
             break;  // Sai do loop para encerrar o programa
