@@ -1,7 +1,9 @@
 #pragma once
 
+#include "Movimentacao.hpp"
 #include "Item.hpp"
 #include <map>
+#include <vector>
 
 
 class Inventario {
@@ -14,29 +16,36 @@ public:
   ///
   void removerItem();
   
-  /// @brief Adiciona uma quantiade de itens ao inventario
+  /// @brief 
   ///
   void atualizarValor();
 
-  /// @brief Adiciona uma quantiade de itens ao inventario
+  /// @brief Adiciona uma quantiade de itens ao estoque
   ///
   void adicionarItens();
 
-  /// @brief Retira uma quantiade de itens do inventario
+  /// @brief Retira uma quantiade de itens do estoque
   ///
   void retirarItens();
 
-  /// @brief retorna o item 
+  /// @brief retorna um item presente no inventario
   ///
-  Item getItem(std::string nome);
+  Item& getItem(std::string& nome);
 
   /// @brief verifica se o item existe no inventário
   ///
   bool itemExiste(std::string nome);
+
+  void adicionarMovimentacao(const std::string& nome, std::string tipo, int quantidade);
   
-  const std::map<std::string, Item>& obterEstoque() const; 
+  /// @brief retorna o inventário
+  ///
+  const std::map<std::string, Item>& obterEstoque() const;
+
+  const std::vector<Movimentacao>& obterHistorico() const;
+
 
 private:
   std::map<std::string, Item> estoque;   
-
+  std::vector<Movimentacao> historico;    
 };

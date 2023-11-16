@@ -1,6 +1,7 @@
 #include "Item.hpp"
 #include "Inventario.hpp"
 #include "Interface.hpp"
+#include "Movimentacao.hpp"
 #include <iostream>
 
 
@@ -14,7 +15,7 @@ bool Inventario::itemExiste(std::string nome){
     }
 }
 
-Item Inventario::getItem(std::string nome){
+Item& Inventario::getItem(std::string& nome){
     auto it = estoque.find(nome);
       return it->second;
 }
@@ -24,7 +25,7 @@ void Inventario::cadastrarItem(){
     double valor = Interface::lerValor<double>("Digite o valor do item:");
 
     // Verifica se já existe um item com o mesmo nome no inventário antes de adicionar
-    if (Inventario::itemExiste(nome)) {
+    if(Inventario::itemExiste(nome)){
       // Se o Item existe------- +++++++++v
       Interface::exibirMensagem("Erro: O Item ja esta cadastrado no sistema");
     } else {
@@ -71,9 +72,15 @@ void Inventario::adicionarItens(){
     // se o item está no inventário -------= = = = = = 
     int quantidade = Interface::lerValor<int>("Digite a quantidade de itens");    
 
-    Item item = Inventario::getItem(nome);
-    int sum = item.getQuantidade() + quantidade;
-    item.setQuantidade(sum);
+    int qtd = Inventario::getItem(nome).getQuantidade();
+    std::cout << qtd << std::endl;
+    int sum = qtd + quantidade;
+    std::cout << sum << std::endl;
+
+    Inventario::getItem(nome).setQuantidade(sum);
+    
+    Inventario::adicionarMovimentacao(nome, "entrada", quantidade);
+
     Interface::exibirMensagem("A quantidade de itens foi atualizada");
   } else {
     Interface::exibirMensagem("O item não existe no inventário");
@@ -88,24 +95,34 @@ void Inventario::retirarItens(){
   //se o item está no inventário -------= = = = = = 
     int quantidade = Interface::lerValor<int>("Digite a quantidade de itens"); 
     
-    Item item = Inventario::getItem(nome);
-    int dif = item.getQuantidade() - quantidade;
+    int dif = Inventario::getItem(nome).getQuantidade() - quantidade;
+
     if(dif < 0){
-        Interface::exibirMensagem("ERRO: Retirada não realizada, estoque insuficiente de itens.");
-    }
-    if(dif == 0){
-        item.setQuantidade(dif);
-        Interface::exibirMensagem("Atenção! Todas as unidades foram retiradas!");
+        Interface::exibirMensagem("ERRO: Retirada nao realizada, estoque insuficiente de itens.");
     } else {
-        item.setQuantidade(dif);
+        if(dif == 0){
+          Interface::exibirMensagem("Atencao!! Todas as unidades foram retiradas");
+        }
+        Inventario::getItem(nome).setQuantidade(dif);
         Interface::exibirMensagem("itens retirados.");
+        Inventario::adicionarMovimentacao(nome, "saida", quantidade);
     }
   } else {
-    Interface::exibirMensagem("O item não existe no inventário");
+    Interface::exibirMensagem("O item nao existe no inventario");
   }
 }
 
+void Inventario::adicionarMovimentacao(const std::string& nome, std::string tipo, int quantidade) {
+     Movimentacao movimentacao(nome, tipo, quantidade);
+     historico.push_back(movimentacao);
+}
+
+
 const std::map<std::string, Item>& Inventario::obterEstoque() const {
       return estoque;
+}
+
+const std::vector<Movimentacao>& Inventario::obterHistorico() const {
+      return historico;
 }
 
