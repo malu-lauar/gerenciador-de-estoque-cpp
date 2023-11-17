@@ -39,7 +39,7 @@ public:
 
   void adicionarMovimentacao(const std::string& nome, std::string tipo, int quantidade);
 
-  void salvarDados(const Inventario& inventario, const std::string& nomeArquivo);
+  void salvarDados(const std::string& nomeArquivo);
 
   void carregarDados(const std::string& nomeArquivo);
   

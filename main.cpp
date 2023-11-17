@@ -35,9 +35,8 @@ int main() {
         } else if (n == 7) {
             // 
             Interface::exibirHistorico(meuInventario);
-        } else if (n == 8) {
-            // Salvar dados e encerrar a sessão
-            meuInventario.salvarDados(meuInventario, "Inventario.json");
+        } else if (n == 8){
+            meuInventario.salvarDados("Inventario.json"); 
             break;  // Sai do loop para encerrar o programa
         } else {
             Interface::exibirMensagem("Erro: Escolha invalida");

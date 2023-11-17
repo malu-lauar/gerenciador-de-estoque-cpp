@@ -33,7 +33,7 @@ void Inventario::cadastrarItem(){
       Interface::exibirMensagem("Erro: O Item ja esta cadastrado no sistema");
     } else {
       // Se o Item não existe, cria o item e adiciona ao inventário ------- +++++++++v
-      Item newItem = Item(nome, valor, 0);
+      Item newItem = Item(nome, valor);
       estoque.insert(std::make_pair(newItem.getNome(), newItem));
       Interface::exibirMensagem("O item foi cadastrado no inventario!");
     }
@@ -120,57 +120,42 @@ void Inventario::adicionarMovimentacao(const std::string& nome, std::string tipo
      historico.push_back(movimentacao);
 }
 
-void Inventario::salvarDados(const Inventario& inventario, const std::string& nomeArquivo) {
-
+void Inventario::salvarDados(const std::string& nomeArquivo) {
     nlohmann::json jsonInventario;  // Cria um objeto JSON para representar o inventário
 
     // Itera sobre cada par (nome do item, objeto Item) no inventário
-    for (const auto& par : inventario.obterEstoque()) {
-        const std::string& nomeItem = par.first;  // Obtém o nome do item
-        const Item& item = par.second;  // Obtém uma referência constante ao objeto Item
-
-        nlohmann::json jsonItem;  // Cria um objeto JSON para representar um item
-
-        // Adiciona as propriedades do Item ao objeto JSON do Item
-        jsonItem["nome"] = item.getNome();
-        jsonItem["valor"] = item.getValor();
-        jsonItem["quantidade"] = item.getQuantidade();
-
-        // Adiciona o objeto JSON do Item ao inventário JSON usando o nome como chave
-        jsonInventario[nomeItem] = jsonItem;
+    for (const auto& par : estoque) {
+      const Item& item = par.second;  // Obtém uma referência constante ao objeto Item
+      nlohmann::json jsonItem = item.toJson();  // Cria um objeto JSON para representar um item
+      
+      // Adiciona o objeto JSON do Item ao inventário JSON usando o nome como chave
+      jsonInventario[item.getNome()] = jsonItem;
     }
 
     // Cria um arquivo para escrita
     std::ofstream arquivo(nomeArquivo);
-
     // Escreve o inventário JSON no arquivo, com espaçamento para facilitar leitura
     arquivo << std::setw(4) << jsonInventario;
 }
 
 void Inventario::carregarDados(const std::string& nomeArquivo) {
-    std::ifstream arquivo(nomeArquivo);
-    if (!arquivo.is_open()) {
-        // Lidar com a falha ao abrir o arquivo, se necessário
-        std::cerr << "Erro ao abrir o arquivo JSON para leitura." << std::endl;
-        return;
-    }
+  std::ifstream arquivo(nomeArquivo);
 
-    nlohmann::json jsonInventario;
-    arquivo >> jsonInventario;
+  if (!arquivo.is_open()) {
+      // Lidar com a falha ao abrir o arquivo, se necessário
+      std::cerr << "Erro ao abrir o arquivo JSON para leitura." << std::endl;
+      return;
+  }
+  nlohmann::json jsonInventario;
+  arquivo >> jsonInventario;
 
-    for (const auto& par : jsonInventario.items()) {
-        //const std::string& nomeItem = par.key();
-        const nlohmann::json& jsonItem = par.value();
-
-        std::string nome = jsonItem["nome"];
-        double valor = jsonItem["valor"];
-        int quantidade = jsonItem["quantidade"];
-
-        // Cria um novo Item e adiciona ao inventário
-        Item item = Item(nome, valor, quantidade);
-        estoque.insert(std::make_pair(item.getNome(), item));
-    }
-        Interface::exibirMensagem("Dados do inventario carregados com sucesso");
+  for (const auto& par : jsonInventario.items()) {
+      const nlohmann::json& jsonItem = par.value();
+      // Cria um novo Item e adiciona ao inventário
+      Item item = Item(jsonItem);
+      estoque.insert(std::make_pair(item.getNome(), item));
+  }
+      Interface::exibirMensagem("Dados do inventario carregados com sucesso");
 }
 
 const std::map<std::string, Item>& Inventario::obterEstoque() const {

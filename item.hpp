@@ -7,6 +7,9 @@
 class Item {
 public:
     Item(const std::string& nome, double valor, int quantidade);
+    Item(const std::string& nome, double valor);
+    Item(const std::string& jsonString); 
+    
     // Métodos getters e setters para os atributos do Item
     /// @brief Retorna o nome do item
     ///

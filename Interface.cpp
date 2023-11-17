@@ -20,7 +20,7 @@ void Interface::exibirMenu() {
         //Configurações
         //  std::cout << ": Idioma" << std::endl;
         //  std::cout << ": Moeda" << std::endl;
-        std::cout << "10: Encerrar sessao" << std::endl;
+        std::cout << "10: Slavar e Sair" << std::endl;
 }
 
 

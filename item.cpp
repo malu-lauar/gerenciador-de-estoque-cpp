@@ -1,13 +1,30 @@
 #include "Item.hpp"
 #include <iostream>
 
-// Implementação do construtor da classe Item
+// Implementação dos construtores do Item
+Item::Item(const std::string& nome, double valor) {
+    this->nome = nome;
+    this->valor = valor;
+    this->quantidade = 0;
+
+// Tratamento de excessões
+}
+
 Item::Item(const std::string& nome, double valor, int quantidade) {
     this->nome = nome;
     this->valor = valor;
     this->quantidade = quantidade;
 
 // Tratamento de excessões
+}
+
+Item::Item(const std::string& jsonString) {
+    nlohmann::json j = nlohmann::json::parse(jsonString);
+
+    // Obtém os valores do JSON
+    this->nome = j["nome"];
+    this->valor = j["valor"];
+    this->quantidade = j["quantidade"];
 }
 
 // Implementação dos métodos getter
