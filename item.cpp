@@ -2,10 +2,10 @@
 #include <iostream>
 
 // Implementação do construtor da classe Item
-Item::Item(const std::string& nome, double valor) {
+Item::Item(const std::string& nome, double valor, int quantidade) {
     this->nome = nome;
     this->valor = valor;
-    this->quantidade = 0;
+    this->quantidade = quantidade;
 
 // Tratamento de excessões
 }
@@ -29,4 +29,14 @@ void Item::setValor(double valor){
 
 void Item::setQuantidade(int quantidade){
      this->quantidade = quantidade;
+}
+
+std::string Item::toJson() const {
+    nlohmann::json j;
+
+    j["nome"] = nome;
+    j["valor"] = valor;
+    j["quantidade"] = quantidade;
+
+    return j.dump(); // Converte o JSON para uma string
 }
