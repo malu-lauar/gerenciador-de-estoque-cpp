@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INVENTARIO_H
+#define INVENTARIO_H
 
 #include "Movimentacao.hpp"
 #include "Item.hpp"
@@ -37,6 +38,10 @@ public:
   bool itemExiste(std::string nome);
 
   void adicionarMovimentacao(const std::string& nome, std::string tipo, int quantidade);
+
+  void salvarDados(const std::string& nomeArquivo1, const std::string& nomeArquivo2);
+
+  void carregarDados(const std::string& nomeArquivo1, const std::string& nomeArquivo2);
   
   /// @brief retorna o inventário
   ///
@@ -49,3 +54,5 @@ private:
   std::map<std::string, Item> estoque;   
   std::vector<Movimentacao> historico;    
 };
+
+#endif

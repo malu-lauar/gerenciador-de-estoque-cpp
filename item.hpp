@@ -2,10 +2,14 @@
 #define ITEM_H
 
 #include <string>
+#include "Include/json.hpp"
 
 class Item {
 public:
+    Item(const std::string& nome, double valor, int quantidade);
     Item(const std::string& nome, double valor);
+    Item(const std::string& jsonString); 
+    
     // Métodos getters e setters para os atributos do Item
     /// @brief Retorna o nome do item
     ///
@@ -25,10 +29,14 @@ public:
     ///
     void setQuantidade(int quantidade);
 
+    // Adicione um método à classe Item para serialização
+    std::string toJson() const;
+
 private:
     std::string nome;
     double valor;
     int quantidade;
+    
 };
 
 

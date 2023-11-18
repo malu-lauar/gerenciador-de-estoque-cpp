@@ -44,7 +44,13 @@
         "typeinfo": "cpp",
         "ctime": "cpp",
         "chrono": "cpp",
-        "ratio": "cpp"
+        "ratio": "cpp",
+        "cstring": "cpp",
+        "forward_list": "cpp",
+        "any": "cpp",
+        "string_view": "cpp",
+        "iomanip": "cpp",
+        "valarray": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
