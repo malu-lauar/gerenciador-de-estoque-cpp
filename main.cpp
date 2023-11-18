@@ -6,10 +6,10 @@
 
 int main() {
     Inventario meuInventario;
-    meuInventario.carregarDados("Inventario.json");
+    meuInventario.carregarDados("Inventario.json", "Historico.json");
     
     while (true) {
-    
+
         Interface::exibirMenu();
         // Leitura da escolha do usuário
         int n = Interface::lerValor<int>("Opssaum");
@@ -36,7 +36,7 @@ int main() {
             // 
             Interface::exibirHistorico(meuInventario);
         } else if (n == 8){
-            meuInventario.salvarDados("Inventario.json"); 
+            meuInventario.salvarDados("Inventario.json", "Historico.json"); 
             break;  // Sai do loop para encerrar o programa
         } else {
             Interface::exibirMensagem("Erro: Escolha invalida");

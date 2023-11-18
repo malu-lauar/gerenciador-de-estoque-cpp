@@ -23,7 +23,6 @@ void Interface::exibirMenu() {
         std::cout << "10: Slavar e Sair" << std::endl;
 }
 
-
 void Interface::exibirMensagem(const std::string& mensagem) {
     std::cout << mensagem << std::endl;
 }
